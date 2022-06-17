@@ -6,8 +6,3 @@ package: Search
 dependencies:
   - drupal:language
   - search_api:search_api
-
-# Information added by Drupal.org packaging script on 2022-01-31
-version: '4.2.7'
-project: 'search_api_solr'
-datestamp: 1643655327

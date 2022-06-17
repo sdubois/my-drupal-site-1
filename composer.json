@@ -8,7 +8,7 @@
         "cweagans/composer-patches": "^1.7",
         "drupal/core-composer-scaffold": "^9.2",
         "drupal/core-recommended": "^9.2",
-        "drupal/search_api_solr": "^4.2",
+        "drupal/search_api_solr": "4.x-dev@dev",
         "drush/drush": "^10",
         "sdubois/amezmo-drupal-integrations": "dev-main"
     },
@@ -26,11 +26,6 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "extra": {
-        "patches": {
-            "drupal/search_api_solr": {
-              "solr": "patches/solr.patch"
-            }
-        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./web"
