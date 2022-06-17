@@ -26,6 +26,11 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "extra": {
+        "patches": {
+            "drupal/search_api_solr": {
+              "solr": "https://git.drupalcode.org/issue/search_api_solr-3281703/-/merge_requests/1.patch"
+            }
+        },
         "drupal-scaffold": {
             "locations": {
                 "web-root": "./web"
