@@ -28,7 +28,7 @@
     "extra": {
         "patches": {
             "drupal/search_api_solr": {
-              "solr": "https://git.drupalcode.org/issue/search_api_solr-3281703/-/merge_requests/1.patch"
+              "solr": "https://www.drupal.org/files/issues/2022-05-31/search-api-solr-missing-validation-31-05-2022.patch"
             }
         },
         "drupal-scaffold": {
