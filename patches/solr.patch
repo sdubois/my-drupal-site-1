@@ -1,0 +1,58 @@
+From 09d55c9ea27cdebbed291747338d3f445a8315f4 Mon Sep 17 00:00:00 2001
+From: "desarrollo2.0" <desarrollo2.0@534318.no-reply.drupal.org>
+Date: Fri, 10 Jun 2022 18:50:06 +0200
+Subject: [PATCH 1/2] Issue #3281703 by jobinvcm: TypeError: Illegal offset
+ type in isset or empty in
+ Drupal\search_api_solr\Plugin\search_api\backend\SearchApiSolrBackend->getLanguageSpecificSolrFieldNames()
+ (line 2304 of
+ modules/contrib/search_api_solr/src/Plugin/search_api/backend/SearchApiSolrBackend
+
+---
+ src/Plugin/search_api/backend/SearchApiSolrBackend.php | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/Plugin/search_api/backend/SearchApiSolrBackend.php b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+index d43c8a60..01ecaf1c 100644
+--- a/src/Plugin/search_api/backend/SearchApiSolrBackend.php
++++ b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+@@ -2807,6 +2807,9 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
+ 
+       if ($language_field && isset($doc_fields[$language_field])) {
+         $language_id = $doc_fields[$language_field];
++        if (is_array($language_id)) {
++          $language_id = current($language_id);
++        }
+         $result_item->setLanguage($language_id);
+         $field_names = $this->getLanguageSpecificSolrFieldNames($language_id, $index);
+       }
+-- 
+GitLab
+
+
+From cebc28f24803461e2268d168a123aa98d4a7ab78 Mon Sep 17 00:00:00 2001
+From: "desarrollo2.0" <desarrollo2.0@534318.no-reply.drupal.org>
+Date: Mon, 13 Jun 2022 09:26:43 +0200
+Subject: [PATCH 2/2] Issue #3281703 by jobinvcm, akalam: TypeError: Illegal
+ offset type in item_id field
+
+---
+ src/Plugin/search_api/backend/SearchApiSolrBackend.php | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/Plugin/search_api/backend/SearchApiSolrBackend.php b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+index 01ecaf1c..fee1b548 100644
+--- a/src/Plugin/search_api/backend/SearchApiSolrBackend.php
++++ b/src/Plugin/search_api/backend/SearchApiSolrBackend.php
+@@ -2779,6 +2779,9 @@ class SearchApiSolrBackend extends BackendPluginBase implements SolrBackendInter
+       }
+ 
+       $item_id = $doc_fields[$id_field];
++      if (is_array($item_id)) {
++        $item_id = current($item_id);
++      }
+       // For items coming from a different site, we need to adapt the item ID.
+       if (isset($doc_fields['hash']) && !$this->configuration['site_hash'] && $doc_fields['hash'] != $site_hash) {
+         $item_id = $doc_fields['hash'] . '--' . $item_id;
+-- 
+GitLab
+
